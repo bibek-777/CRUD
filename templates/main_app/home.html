@@ -5,6 +5,25 @@
 {% endblock %}
 
 {% block content %}
-<a href="{% url 'main-app_course' %}" class="btn btn-primary">Add course</a>
+{% if courses %}
+    {% for course in courses %}
+        <div class="container">
+        <small>{{course.id}}</small>
+        <p>{{course.title}}</p>
+        <p>{{course.description}}</p>
+        <p>{{course.price}}</p>
+        <p>{{course.duration}}</p>
+        <a href="{% url 'edit' id=course.id %}">edit</a>
+        <a href="{% url 'delete' id=course.id %}">delete</a>
+        <hr>
+        </div>
+    {% endfor %}
+{% else %}
+    <h3>No Courses Available</h3>
+{% endif %}
 
+<a href="{% url 'main-app_course' %}" class="btn btn-primary">Add course</a>
+{% if courses %}
+    <a href="{% url 'deleteall' %}">deleteall</a>
+{% endif %}
 {% endblock %}
